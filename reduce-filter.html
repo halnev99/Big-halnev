@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // array methods - reduce
+      const movies = [
+        {
+          title: "apple",
+          year: 2011,
+        },
+        {
+          title: "banana",
+          year: 2000,
+        },
+        {
+          title: "pear",
+          year: 1995,
+        },
+        {
+          title: "mango",
+          year: 2019,
+        },
+        {
+          title: "pineapple",
+          year: 2021,
+        },
+      ];
+
+      const oldestMovie = movies.reduce((oldestMovie, currMovie) => {
+        if (oldestMovie.year < currMovie.year) {
+          return oldestMovie;
+        }
+        return currMovie;
+      });
+
+      console.log(oldestMovie);
+
+      const prices = [1500, 900, 3000, 100, 9800];
+      const minPrice = prices.reduce((min, curr) => {
+        if (curr < min) {
+          return curr;
+        }
+        return min;
+      });
+
+      console.log(minPrice);
+
+      // keyword 'this'
+
+      function x() {
+        console.log("this is x...", this);
+      }
+
+      const z = () => {
+        console.log("this is z...", this);
+      };
+
+      const xyz = {
+        names: ["apple", "banana", "carrot"],
+        xx: function () {
+          console.log("this is xx..", this);
+        },
+        yy: () => {
+          console.log("this is yy...", this);
+        },
+      };
+
+      // Rest Params
+      // 생긴것은 spread 처럼 생겼지만 실제 기능은 나머지 원소들을 한데 모으는것
+      function sum() {
+        console.log(arguments);
+        // let sum = arguments.reduce((accu, curr) => {
+        //   return accu + curr;
+        // }); // arguments는 배열처럼 보이지만 사실 배열이 아니라서 배열 메소드를 사용할 수 없음... 대신에 rest param를 사용하자!
+      }
+
+      function newSum(...nums) {
+        console.log(nums);
+        console.log(nums.reduce((accu, curr) => accu + curr));
+        return nums.reduce((accu, curr) => accu + curr);
+      }
+
+      sum(11, 14, 55, 100);
+      newSum(100, 1, 5, 22);
+
+      function testResults(first, second, ...restStudents) {
+        console.log(
+          `First: ${first}, Second: ${second}, Rest students: ${restStudents}`
+        );
+      }
+
+      testResults("Grape", "Mango", "Cherry", "Guaba", "Tomato");
+
+      // destructuring arrays
+      const scores = [99, 100, 200, 10];
+      const [a, b] = scores;
+      const [aa, bb, ...restScores] = scores;
+      console.log(a, b);
+      console.log(aa, bb, restScores);
+
+      // destructuring objects
+      const user = {
+        name: "apple",
+        age: "10",
+        email: "xxx@xxx.com",
+        isAdult: false,
+        id: "3avvadf",
+      };
+
+      const { name, age, email, address = "unknown" } = user;
+      console.log(name, age, email, address);
+      const { id: userID } = user; // 변수 이름도 원하는 것으로 할 수 있음
+      console.log(userID);
+
+      // destructuring params
+      function getNameAge({ name, age }) {
+        return `Name: ${name}, Age: ${age}`;
+      }
+
+      const userNameAge = getNameAge(user);
+      console.log(userNameAge);
+
+      const longTitles = movies.filter((movie) => movie.title.length > 5);
+      console.log(longTitles);
+
+      const longTitles2 = movies.filter(({ title }) => title.length > 5);
+      console.log(longTitles2);
+
+      const movieTitles = movies.map((movie) => {
+        return `${movie.title} (${movie.year}) is ${movie.title.length} characters.`;
+      });
+      console.log(movieTitles);
+
+      const movieTitles2 = movies.map(({ title, year }) => {
+        return `${title} (${year}) is ${title.length} characters.`;
+      });
+      console.log(movieTitles2);
+
+      //
+    </script>
+  </body>
+</html>
